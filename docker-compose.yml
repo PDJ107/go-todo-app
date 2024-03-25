@@ -4,6 +4,9 @@ services:
     image: gotodo
     build:
       args:
-        - target=dev
-      volumes:
-        - .:/app
+        - target=deploy
+    environment:
+      TODO_ENV: dev
+      PORT: 8080
+    ports:
+      - "18080:8080"
