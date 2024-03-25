@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   app:
-    image: gotodo
+    image: pdj107/gotodo
     build:
       args:
         - target=deploy
