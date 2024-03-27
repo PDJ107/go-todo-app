@@ -21,5 +21,14 @@ ps: ## 컨테이너 상태 확인
 test: ## 테스트 실행
 	go test -race -shuffle=on ./...
 
+dry-migrate: ## Try migration
+	mysqldef -u todo -p todo -h 192.168.10.51 -P 33306 todo --dry-run < ./_tools/mysql/schema.sql
+
+migrate:  ## Execute migration
+	mysqldef -u todo -p todo -h 192.168.10.51 -P 33306 todo < ./_tools/mysql/schema.sql
+
+generate: ## Generate codes
+	go generate ./...
+
 help: ## 옵션 보기
 		@grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m\t$$(echo $$l | cut -f 3- -d'#')\n"; done
