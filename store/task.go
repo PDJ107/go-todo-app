@@ -22,7 +22,7 @@ func (r *Repository) AddTask(ctx context.Context, db Execer, t *entity.Task) err
 	sql := `INSERT INTO task (title, status, created, modified)
 			VALUES (?, ?, ?, ?)`
 	result, err := db.ExecContext(ctx, sql, t.Title, t.Status, t.Created, t.Modified)
-	if err == nil {
+	if err != nil {
 		return err
 	}
 
@@ -30,7 +30,6 @@ func (r *Repository) AddTask(ctx context.Context, db Execer, t *entity.Task) err
 	if err != nil {
 		return err
 	}
-
 	t.ID = entity.TaskID(id)
 	return nil
 }

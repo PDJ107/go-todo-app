@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"time"
 
@@ -10,6 +11,16 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/pdj107/go-todo-app/clock"
 	"github.com/pdj107/go-todo-app/config"
+)
+
+const (
+	// https://dev.mysql.com/doc/mysql-errors/8.0/en/server-error-reference.html
+	// Error number: 1062, symbol: ER_DUP_ENTRY; SQLSTATE: 23000
+	ErrCodeMySQLDuplicateEntry = 1062
+)
+
+var (
+	ErrAlreadyEntry = errors.New("duplicate entry")
 )
 
 type Beginner interface {
