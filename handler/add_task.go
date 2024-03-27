@@ -25,12 +25,14 @@ func (at *AddTask) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		RespondJSON(ctx, w, &ErrResponse{
 			Message: err.Error(),
 		}, http.StatusInternalServerError)
+		return
 	}
 
 	if err := at.Validator.Struct(b); err != nil {
 		RespondJSON(ctx, w, &ErrResponse{
 			Message: err.Error(),
 		}, http.StatusBadRequest)
+		return
 	}
 
 	t := &entity.Task{
