@@ -1,0 +1,1 @@
+dockerize -wait tcp://todo-db:3306 -wait tcp://todo-redis:6379 -timeout 20s && ./app
